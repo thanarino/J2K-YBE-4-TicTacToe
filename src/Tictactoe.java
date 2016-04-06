@@ -5,6 +5,7 @@
  */
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +46,34 @@ public class Tictactoe {
 		mainmenu.addOKActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				cardlayout.show(panel, GAME);
+				mainmenu.checker();
+				System.out.println(mainmenu.isOddNumber());
+				System.out.println(mainmenu.isPlayer1HasData());
+				System.out.println(mainmenu.isPlayer2HasData());
+				if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
+					cardlayout.show(panel, GAME);
+				}else if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
+					mainmenu.error.setText("The number you've entered is not odd.");
+					mainmenu.error.setForeground(Color.RED);
+				}else if(mainmenu.isPlayer2HasData()&&!mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
+					mainmenu.error.setText("Player 1 has no name.");
+					mainmenu.error.setForeground(Color.RED);
+				}else if(!mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
+					mainmenu.error.setText("Player 2 has no name.");
+					mainmenu.error.setForeground(Color.RED);
+				}else if(mainmenu.isPlayer2HasData()&&!mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
+					mainmenu.error.setText("<html><body>The number you've entered is not odd.<br>Player 1 has no name.</body></html>");
+					mainmenu.error.setForeground(Color.RED);
+				}else if(!mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
+					mainmenu.error.setText("<html><body>The number you've entered is not odd.<br>Player 2 has no name.</html></body>");
+					mainmenu.error.setForeground(Color.RED);
+				}else if(!mainmenu.isPlayer2HasData()&&!mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
+					mainmenu.error.setText("Players 1 & 2 have no names.");
+					mainmenu.error.setForeground(Color.RED);
+				}else{
+					mainmenu.error.setText("Please enter the values indicated.");
+					mainmenu.error.setForeground(Color.RED);
+				}
 			}
 		});
 	}

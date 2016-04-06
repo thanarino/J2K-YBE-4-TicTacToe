@@ -9,7 +9,6 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -17,21 +16,21 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
-import ui.GameScreen;
 
 public class MainMenu{
 
-	Font font = new Font("MONOSPACED", Font.BOLD, 20);
-	JPanel panel = new JPanel();
-	JButton ok = new JButton("OK");
-	JTextField player1 = new JTextField(15);
-	JTextField player2 = new JTextField(15);
+	private Font font = new Font("MONOSPACED", Font.BOLD, 20);
+	private JPanel panel = new JPanel();
+	private JButton ok = new JButton("OK");
+	private JButton cancel = new JButton("Cancel");
+	private JTextField player1 = new JTextField(15);
+	private JTextField player2 = new JTextField(15);
+	private JTextField roundNumber = new JTextField(5);
+	public JLabel error = new JLabel();
 	
-	boolean player1HasData = false;
-	boolean player2HasData = false;
+	private boolean player1HasData = false;
+	private boolean player2HasData = false;
+	private boolean oddNumber = false;
 	
 	public MainMenu() {
 		panel.setLayout(new BorderLayout());
@@ -50,6 +49,10 @@ public class MainMenu{
 		ok.addActionListener(actionListener);
 	}
 	
+	public void addCancelActionListener(ActionListener actionListener){
+		cancel.addActionListener(actionListener);
+	}
+	
 	private JPanel addComponentsAbove() {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 50));
@@ -60,22 +63,9 @@ public class MainMenu{
 		JPanel panel = new JPanel();
 		
 		panel.setPreferredSize(new Dimension(500, 50));
-		JButton cancel = new JButton("Cancel");
-		
-		if(player1HasData && player2HasData){
-			ok.setEnabled(true);
-		}else{
-			ok.setEnabled(false);
-		}
-		
-		ok.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new GameScreen();
-			}
-		});
-		
 		panel.add(ok);
 		panel.add(cancel);
+		
 		return panel;
 	}
 	
@@ -103,45 +93,62 @@ public class MainMenu{
 		panel.add(player1);
 		panel.add(new JLabel("Player 2 name: "));
 		panel.add(player2);
-		
-		player1.getDocument().addDocumentListener(new DocumentListener(){
-			public void changedUpdate(DocumentEvent e){
-				changed();
-			}
-			public void removeUpdate(DocumentEvent e){
-				changed();
-			}
-			public void insertUpdate(DocumentEvent e){
-				changed();
-			}
-			public void changed(){
-				if(player1.getText().equals("")){
-					player1HasData = false;
-				}else{
-					player1HasData = true;
-				}
-			}
-		});
-		
-		player2.getDocument().addDocumentListener(new DocumentListener(){
-			public void changedUpdate(DocumentEvent e){
-				changed();
-			}
-			public void removeUpdate(DocumentEvent e){
-				changed();
-			}
-			public void insertUpdate(DocumentEvent e){
-				changed();
-			}
-			public void changed(){
-				if(player2.getText().equals("")){
-					player2HasData = false;
-				}else{
-					player2HasData = true;
-				}
-			}
-		});
-		
+		panel.add(new JLabel("Best of: "));
+		panel.add(roundNumber);
+		panel.add(error);
+
+
 		return panel;
+	}
+	
+	public void checker(){
+		if(player1.getText().equals("")){
+			setPlayer1HasData(false);
+		}else{
+			setPlayer1HasData(true);
+		}
+		
+		if(player2.getText().equals("")){
+			setPlayer2HasData(false);
+		}else{
+			setPlayer2HasData(true);
+		}
+
+		if(roundNumber.getText().equals("") || Integer.parseInt(roundNumber.getText()) % 2 == 0){
+			setOddNumber(false);
+		}else{
+			setOddNumber(true);
+		}
+		
+		System.out.println(player1HasData);
+		System.out.println(player2HasData);
+		System.out.println(oddNumber);
+		
+	}
+
+	//GETTERS && SETTERS
+	
+	public boolean isPlayer1HasData() {
+		return player1HasData;
+	}
+
+	public void setPlayer1HasData(boolean player1HasData) {
+		this.player1HasData = player1HasData;
+	}
+
+	public boolean isPlayer2HasData() {
+		return player2HasData;
+	}
+
+	public void setPlayer2HasData(boolean player2HasData) {
+		this.player2HasData = player2HasData;
+	}
+
+	public boolean isOddNumber() {
+		return oddNumber;
+	}
+
+	public void setOddNumber(boolean oddNumber) {
+		this.oddNumber = oddNumber;
 	}
 }
