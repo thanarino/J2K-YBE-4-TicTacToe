@@ -7,25 +7,29 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class GameScreen {
-
-	private JFrame frame;
+	
+	JPanel panel = new JPanel();
+	JButton back = new JButton("Back");
 	
 	public GameScreen() {
-		Container container = frame.getContentPane();
-		container.setLayout(new BorderLayout());
-		container.add(addComponentsCenter(), BorderLayout.CENTER);
-		container.add(addComponentsAbove(), BorderLayout.NORTH);
-		container.add(addComponentsBelow(), BorderLayout.SOUTH);
-		container.add(addComponentsEast(), BorderLayout.EAST);
-		container.add(addComponentsWest(), BorderLayout.WEST);
+		panel.setLayout(new BorderLayout());
+		panel.add(addComponentsCenter(), BorderLayout.CENTER);
+		panel.add(addComponentsAbove(), BorderLayout.NORTH);
+		panel.add(addComponentsBelow(), BorderLayout.SOUTH);
+		panel.add(addComponentsEast(), BorderLayout.EAST);
+		panel.add(addComponentsWest(), BorderLayout.WEST);
+	}
+	
+	public JComponent getMainComponent(){
+		return panel;
 	}
 	
 	public JPanel addComponentsAbove(){
@@ -54,6 +58,7 @@ public class GameScreen {
 		
 		for(i=0; i < 9; i++){
 			button[i] = new JButton();
+			button[i].setName(Integer.toString(i));
 			button[i].setPreferredSize(dimension);
 			panel.add(button[i]);
 		}

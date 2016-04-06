@@ -7,27 +7,47 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class MainMenu {
+import ui.GameScreen;
+
+public class MainMenu{
 
 	Font font = new Font("MONOSPACED", Font.BOLD, 20);
+	JPanel panel = new JPanel();
+	JButton ok = new JButton("OK");
+	JTextField player1 = new JTextField(15);
+	JTextField player2 = new JTextField(15);
 	
-	public MainMenu(Container container) {
-		
-		container.setLayout(new BorderLayout());
-		container.add(addComponentsCenter(), BorderLayout.CENTER);
-		container.add(addComponentsAbove(), BorderLayout.NORTH);
-		container.add(addComponentsBelow(), BorderLayout.SOUTH);
-		container.add(addComponentsEast(), BorderLayout.EAST);
-		container.add(addComponentsWest(), BorderLayout.WEST);
+	boolean player1HasData = false;
+	boolean player2HasData = false;
+	
+	public MainMenu() {
+		panel.setLayout(new BorderLayout());
+		panel.add(addComponentsCenter(), BorderLayout.CENTER);
+		panel.add(addComponentsAbove(), BorderLayout.NORTH);
+		panel.add(addComponentsBelow(), BorderLayout.SOUTH);
+		panel.add(addComponentsEast(), BorderLayout.EAST);
+		panel.add(addComponentsWest(), BorderLayout.WEST);
+	}
+	
+	public JComponent getMainComponent(){
+		return panel;
+	}
+	
+	public void addOKActionListener(ActionListener actionListener){
+		ok.addActionListener(actionListener);
 	}
 	
 	private JPanel addComponentsAbove() {
@@ -38,9 +58,22 @@ public class MainMenu {
 	
 	private JPanel addComponentsBelow() {
 		JPanel panel = new JPanel();
+		
 		panel.setPreferredSize(new Dimension(500, 50));
-		JButton ok = new JButton("OK");
 		JButton cancel = new JButton("Cancel");
+		
+		if(player1HasData && player2HasData){
+			ok.setEnabled(true);
+		}else{
+			ok.setEnabled(false);
+		}
+		
+		ok.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new GameScreen();
+			}
+		});
+		
 		panel.add(ok);
 		panel.add(cancel);
 		return panel;
@@ -66,14 +99,49 @@ public class MainMenu {
 		title.setFont(font);
 		panel.add(title);
 		
-		JTextField player1 = new JTextField("Enter here", 15);
-		JTextField player2 = new JTextField("Enter here", 15);
-		
 		panel.add(new JLabel("Player 1 name: "));
 		panel.add(player1);
 		panel.add(new JLabel("Player 2 name: "));
 		panel.add(player2);
+		
+		player1.getDocument().addDocumentListener(new DocumentListener(){
+			public void changedUpdate(DocumentEvent e){
+				changed();
+			}
+			public void removeUpdate(DocumentEvent e){
+				changed();
+			}
+			public void insertUpdate(DocumentEvent e){
+				changed();
+			}
+			public void changed(){
+				if(player1.getText().equals("")){
+					player1HasData = false;
+				}else{
+					player1HasData = true;
+				}
+			}
+		});
+		
+		player2.getDocument().addDocumentListener(new DocumentListener(){
+			public void changedUpdate(DocumentEvent e){
+				changed();
+			}
+			public void removeUpdate(DocumentEvent e){
+				changed();
+			}
+			public void insertUpdate(DocumentEvent e){
+				changed();
+			}
+			public void changed(){
+				if(player2.getText().equals("")){
+					player2HasData = false;
+				}else{
+					player2HasData = true;
+				}
+			}
+		});
+		
 		return panel;
 	}
-
 }
