@@ -31,9 +31,4 @@ public class Tictactoe {
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
 	}
-	
-	
-	
-	
-
 }
