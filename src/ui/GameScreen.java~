@@ -62,6 +62,7 @@ public class GameScreen {
 		
 		for(i=0; i < 9; i++){
 			button[i] = new JButton();
+
 			button[i].setFont(new Font("Monospace", Font.BOLD, 50));
 			button[i].setForeground(Color.BLUE);
 			button[i].addActionListener(new ActionListener(){
@@ -94,9 +95,6 @@ public class GameScreen {
 		panel.setPreferredSize(new Dimension(100, 300));		
 		return panel;
 	}
-	
-
-
 	
 
 }
