@@ -96,8 +96,6 @@ public class MainMenu{
 		panel.add(new JLabel("Best of: "));
 		panel.add(roundNumber);
 		panel.add(error);
-
-
 		return panel;
 	}
 	
@@ -118,15 +116,22 @@ public class MainMenu{
 			setOddNumber(false);
 		}else{
 			setOddNumber(true);
-		}
-		
-		System.out.println(player1HasData);
-		System.out.println(player2HasData);
-		System.out.println(oddNumber);
-		
+		}		
 	}
 
 	//GETTERS && SETTERS
+	
+	public int getRoundNumber(){
+		return Integer.parseInt(roundNumber.getText());
+	}
+	
+	public String player1Name(){
+		return player1.getText();
+	}
+	
+	public String player2Name(){
+		return player2.getText();
+	}
 	
 	public boolean isPlayer1HasData() {
 		return player1HasData;
