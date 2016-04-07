@@ -76,7 +76,6 @@ public class Tictactoe {
 				}
 			}
 		});
-		
 	mainmenu.addCancelActionListener(new ActionListener(){
 		@Override
 		 public void actionPerformed(ActionEvent e) {

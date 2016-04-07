@@ -24,6 +24,8 @@ public class GameScreen {
 	JButton back = new JButton("Back");
 	
 	public GameScreen() {
+		//panel.setBackground(Color.BLUE);
+		
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
@@ -65,10 +67,11 @@ public class GameScreen {
 
 			button[i].setFont(new Font("Monospace", Font.BOLD, 50));
 			button[i].setForeground(Color.BLUE);
+			
 			button[i].addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					
-					((JButton)e.getSource()).setText("x");
+					((JButton)e.getSource()).setText("X");
 					
 				}
 			});

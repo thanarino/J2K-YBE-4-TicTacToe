@@ -52,10 +52,16 @@ public class MainMenu{
 		ok.addActionListener(actionListener);
 	}
 	
-	public void addCancelActionListener(ActionListener actionListener){
+	cancel.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			System.exit(0);
+		}
+	});
+	
+	/*public void addCancelActionListener(ActionListener actionListener){
 		cancel.addActionListener(actionListener);
 		
-	}
+	}*/
 		
 	private JPanel addComponentsAbove() {
 		JPanel panel = new JPanel();
