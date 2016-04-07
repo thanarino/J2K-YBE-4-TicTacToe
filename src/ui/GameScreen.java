@@ -9,6 +9,8 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -58,6 +60,12 @@ public class GameScreen {
 		
 		for(i=0; i < 9; i++){
 			button[i] = new JButton();
+			button[i].addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					((JButton)e.getSource()).setText("X");
+				}
+			
+			});
 			button[i].setName(Integer.toString(i));
 			button[i].setPreferredSize(dimension);
 			panel.add(button[i]);
@@ -79,5 +87,6 @@ public class GameScreen {
 		panel.setPreferredSize(new Dimension(100, 300));		
 		return panel;
 	}
+	
 
 }
