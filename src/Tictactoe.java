@@ -3,7 +3,7 @@
  * 	- contains the main method
  * 
  */
-
+import algo.Player;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,6 +18,7 @@ import ui.GameScreen;
 import ui.MainMenu;
 
 public class Tictactoe {
+	private String winner;
 	private static final String MENU = "menu";
 	private static final String GAME = "game";
 	private CardLayout cardlayout = new CardLayout();
@@ -51,6 +52,7 @@ public class Tictactoe {
 				System.out.println(mainmenu.isPlayer1HasData());
 				System.out.println(mainmenu.isPlayer2HasData());
 				if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
+					winner = playGame(mainmenu.getNameP1(),mainmenu.getNameP2()); 
 					cardlayout.show(panel, GAME);
 				}else if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
 					mainmenu.error.setText("The number you've entered is not odd.");
@@ -76,6 +78,28 @@ public class Tictactoe {
 				}
 			}
 		});
+		
+	}
+	
+	private static String playGame(String player1Name, String player2Name){
+		Player player1 = new Player(player1Name, 'X');
+		Player player2 = new Player(player2Name, 'O');
+		Player current;
+		int turnCount = 0;
+		boolean keepPlaying = true;
+		
+		while(keepPlaying){
+			turnCount++;
+			
+			if(turnCount %2 == 0){
+				current = player1;
+			}else {
+				current = player2;
+			}
+			
+		}
+		return null;
+	
 	}
 	
 	private static void BuildUI(){

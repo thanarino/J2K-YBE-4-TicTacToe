@@ -63,8 +63,7 @@ public class GameScreen {
 			button[i].addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					((JButton)e.getSource()).setText("X");
-				}
-			
+				}			
 			});
 			button[i].setName(Integer.toString(i));
 			button[i].setPreferredSize(dimension);

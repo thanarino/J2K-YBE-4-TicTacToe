@@ -45,6 +45,14 @@ public class MainMenu{
 		return panel;
 	}
 	
+	public String getNameP1(){
+		return player1.getText();
+	}
+	
+	public String getNameP2(){
+		return player2.getText();
+	}
+	
 	public void addOKActionListener(ActionListener actionListener){
 		ok.addActionListener(actionListener);
 	}

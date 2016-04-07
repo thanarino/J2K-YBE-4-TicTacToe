@@ -3,11 +3,13 @@ package algo;
 public class Player{
 	private String name;
 	private int[] pattern = new int[5];
+	private char a;
 	private int counter = 0;
 	private int score;
 	
-	public Player(String name){
+	public Player(String name, char a){
 		this.name = name;
+		this.a = a;
 	}
 	
 	public void insertNum(int n){
@@ -17,13 +19,8 @@ public class Player{
 	public int[] getPattern(){
 		return this.pattern;
 	}
-	
-	public int getCounter(){
-		return this.counter;
+		
+	public String getName(){
+		return this.name;
 	}
-	
-	public void setScore(int score){
-		this.score += score;
-	}
-	
 }
