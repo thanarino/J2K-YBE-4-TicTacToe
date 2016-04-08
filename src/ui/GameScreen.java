@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 import algo.Player;
 
-public class GameScreen extends MainMenu{
+public class GameScreen extends MainMenu implements ActionListener{
 	
 	JPanel panel = new JPanel();
 	JButton back = new JButton("Back");
@@ -33,6 +33,8 @@ public class GameScreen extends MainMenu{
 	int playerOMoveCount = 0;
 	int playerXMoveCount = 0;
 	int turnCount = 0;
+	Player currentPlayer;
+	String letter;
 	
 	public GameScreen(Player playerX, Player playerO, int roundNumber) {
 		panel.setLayout(new BorderLayout());
@@ -44,13 +46,9 @@ public class GameScreen extends MainMenu{
 	}
 	
 	public void mainLoop(Player playerX, Player playerO, int roundNumber){
-		Player currentPlayer;
-		int roundCount = 0;
-		boolean hasWon = false;
-				
-		System.out.println(turnCount);
-		if(turnCount != 5){
-			if(turnCount % 2 == 0){
+		for(int j=1; j<10; j++){
+			System.out.println(j);
+			if(j % 2 == 0){
 				currentPlayer = playerO;
 				for(int i = 0; i<9; i++){
 					button[i].setFont(new Font("Monospace", Font.BOLD, 50));
@@ -58,9 +56,9 @@ public class GameScreen extends MainMenu{
 					button[i].addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
 							((JButton)e.getSource()).setText("o");
-							playerO.setPattern(playerOMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
+							//System.out.println(Integer.parseInt(((JButton)e.getSource()).getName()));
+							currentPlayer.setPattern(playerOMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
 							playerOMoveCount++;
-							turnCount++;
 						}
 					});
 				}
@@ -72,9 +70,8 @@ public class GameScreen extends MainMenu{
 					button[i].addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent e){
 							((JButton)e.getSource()).setText("x");
-							playerX.setPattern(playerXMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
+							currentPlayer.setPattern(playerXMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
 							playerXMoveCount++;
-							turnCount++;
 						}
 					});
 				}
@@ -121,6 +118,7 @@ public class GameScreen extends MainMenu{
 			button[i].setName(Integer.toString(i));
 			button[i].setPreferredSize(dimension);
 			panel.add(button[i]);
+			button[i].addActionListener(this);
 		}
 		
 		return panel;
@@ -146,6 +144,20 @@ public class GameScreen extends MainMenu{
 
 	public void setPlayer1(JLabel player1) {
 		this.player1 = player1;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		turnCount++;
+		if(turnCount % 2 == 0){
+			letter = "O";
+		}else{
+			letter = "X";
+		}
+		((JButton)e.getSource()).setText(letter);
+		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
+		((JButton)e.getSource()).setText(letter);
+		((JButton)e.getSource()).setEnabled(false);
 	}
 	
 

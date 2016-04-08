@@ -24,6 +24,7 @@ public class Tictactoe {
 	private MainMenu mainmenu = new MainMenu();
 	private Player playerX = new Player('X');
 	private Player playerO = new Player('O'); 
+	private int turnCount = 0;
 	
 	private static Dimension dimension = new Dimension(500, 300);
 
@@ -53,11 +54,11 @@ public class Tictactoe {
 					if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
 						playerX.setName(mainmenu.player2Name());
 						playerO.setName(mainmenu.player1Name());
-						
 						GameScreen gamescreen = new GameScreen(playerX, playerO, mainmenu.getRoundNumber());
 						panel.add(gamescreen.getMainComponent(), GAME);						
 						cardlayout.show(panel, GAME);
-						gamescreen.mainLoop(playerX, playerO, mainmenu.getRoundNumber());
+						//gamescreen.mainLoop(playerX, playerO, mainmenu.getRoundNumber());
+						
 					}else if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
 						mainmenu.error.setText("<html><body>The number you've entered is either not odd<br>or not a number at all.</body></html>");
 						mainmenu.error.setForeground(Color.RED);
@@ -92,8 +93,7 @@ public class Tictactoe {
 		});	
 			  	
 	}
-	
-	private static void BuildUI(){
+		private static void BuildUI(){
 		JFrame frame = new JFrame("TicTacToe");
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);
