@@ -35,11 +35,6 @@ public class MainMenu{
 	private boolean oddNumber = false;
 	
 	public MainMenu() {
-<<<<<<< HEAD
-	/****************
-		Constructor
-	****************/
-=======
 	
 	/*********************************************************************************
 		This is the constructors for the MainMenu class.
@@ -87,9 +82,11 @@ public class MainMenu{
 	}
 	
 	private JPanel addComponentsBelow() {
+	
 	/*********************************************************************************
 		This function adds a padding below the screen for proportionality.
 	*********************************************************************************/
+	
 		JPanel panel = new JPanel();
 		
 		panel.setPreferredSize(new Dimension(500, 50));
@@ -138,7 +135,6 @@ public class MainMenu{
 		panel.add(title);
 		//Color.magenta
 		
-		//Labels
 		panel.add(new JLabel("Player 1 name: "));
 		panel.add(player1);
 		panel.add(new JLabel("Player 2 name: "));
@@ -150,6 +146,7 @@ public class MainMenu{
 	}
 	
 	public void checker(){
+	
 	/*********************************************************************************
 		This functions checks whether each player has inputted name.
 	*********************************************************************************/
