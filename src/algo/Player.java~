@@ -36,10 +36,6 @@ public class Player{
 		pattern[counter++] = n;
 	}
 	
-	/*********************************************************************************
-		Getters for the player class.
-	*********************************************************************************/
-	
 	public String getName(){
 		return this.name;
 	}

@@ -1,8 +1,10 @@
-/*
- * Class TicTacToe
- * 	- contains the main method
- * 
+
+/* Authors: Jonathan Arino && Krisanta Agdan && Krezly Plata
+ * Date Created: April 5, 2016
+ * Date Submitted: April 8, 2016
+ * Tictactoe Game: This lets the user play Tictactoe Game.
  */
+ 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,10 +52,16 @@ public class Tictactoe {
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
+			/*********************************************************************************
+				This function checks the inputs of the user in the main screen.
+			*********************************************************************************/
 				try{
 					mainmenu.checker();
 				}catch(NumberFormatException ex){
 				}finally{
+				
+					
+				
 					if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
 						playerX.setName(mainmenu.player2Name());
 						playerO.setName(mainmenu.player1Name());
@@ -90,6 +98,9 @@ public class Tictactoe {
 		});
 		
 		mainmenu.addCancelActionListener(new ActionListener(){
+		/*********************************************************************************
+			This function allows the cancel button to exit the game.
+		*********************************************************************************/
 			 	@Override
 			 	public void actionPerformed(ActionEvent e) {
 			 	System.exit(1);
@@ -108,6 +119,10 @@ public class Tictactoe {
 	}
 	
 	private static void BuildUI(){
+	
+	/*********************************************************************************
+		This function builds the user interface of the game.
+	*********************************************************************************/
 		JFrame frame = new JFrame("TicTacToe");
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);
