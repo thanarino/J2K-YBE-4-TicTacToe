@@ -38,45 +38,11 @@ public class GameScreen extends MainMenu implements ActionListener{
 	
 	public GameScreen(Player playerX, Player playerO, int roundNumber) {
 		panel.setLayout(new BorderLayout());
-		panel.add(addComponentsCenter(button), BorderLayout.CENTER);
+		panel.add(addComponentsCenter(button, playerX, playerO), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
 		panel.add(addComponentsBelow(playerX, playerO, roundNumber), BorderLayout.SOUTH);
 		panel.add(addComponentsEast(), BorderLayout.EAST);
 		panel.add(addComponentsWest(), BorderLayout.WEST);
-	}
-	
-	public void mainLoop(Player playerX, Player playerO, int roundNumber){
-		for(int j=1; j<10; j++){
-			System.out.println(j);
-			if(j % 2 == 0){
-				currentPlayer = playerO;
-				for(int i = 0; i<9; i++){
-					button[i].setFont(new Font("Monospace", Font.BOLD, 50));
-					button[i].setForeground(Color.RED);
-					button[i].addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							((JButton)e.getSource()).setText("o");
-							//System.out.println(Integer.parseInt(((JButton)e.getSource()).getName()));
-							currentPlayer.setPattern(playerOMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
-							playerOMoveCount++;
-						}
-					});
-				}
-			}else{
-				currentPlayer = playerX;
-				for(int i = 0; i<9; i++){
-					button[i].setFont(new Font("Monospace", Font.BOLD, 50));
-					button[i].setForeground(Color.BLUE);
-					button[i].addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							((JButton)e.getSource()).setText("x");
-							currentPlayer.setPattern(playerXMoveCount, Integer.parseInt(((JButton)e.getSource()).getName()));	
-							playerXMoveCount++;
-						}
-					});
-				}
-			}
-		}
 	}
 	
 	public JComponent getMainComponent(){
@@ -105,7 +71,7 @@ public class GameScreen extends MainMenu implements ActionListener{
 		return panel;
 	}
 	
-	public JPanel addComponentsCenter(JButton[] button){
+	public JPanel addComponentsCenter(JButton[] button, Player playerX, Player playerO){
 		int i;
 		Dimension dimension = new Dimension(30,30);
 		JPanel panel = new JPanel();
@@ -119,6 +85,19 @@ public class GameScreen extends MainMenu implements ActionListener{
 			button[i].setPreferredSize(dimension);
 			panel.add(button[i]);
 			button[i].addActionListener(this);
+			if(!(button[i].isEnabled())){
+				if(turnCount % 2 == 0){
+					playerO.setPattern(playerOMoveCount, i);
+					System.out.println(playerO.getPattern()[0]);
+					playerOMoveCount++;
+					System.out.println(playerOMoveCount);
+				}else{
+					playerX.setPattern(playerXMoveCount, i);
+					System.out.println(playerX.getPattern()[0]);
+					playerXMoveCount++;
+					System.out.println(playerXMoveCount);
+				}
+			}
 		}
 		
 		return panel;
@@ -158,6 +137,7 @@ public class GameScreen extends MainMenu implements ActionListener{
 		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
 		((JButton)e.getSource()).setText(letter);
 		((JButton)e.getSource()).setEnabled(false);
+
 	}
 	
 

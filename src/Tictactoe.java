@@ -93,7 +93,8 @@ public class Tictactoe {
 		});	
 			  	
 	}
-		private static void BuildUI(){
+	
+	private static void BuildUI(){
 		JFrame frame = new JFrame("TicTacToe");
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);
