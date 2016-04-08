@@ -6,18 +6,25 @@
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import algo.Diagonal;
 import algo.Horizontal;
 import algo.Player;
+import algo.Vertical;
 import ui.GameScreen;
 import ui.MainMenu;
 
-public class Tictactoe {
+public class Tictactoe implements ActionListener{
 	private static final String MENU = "menu";
 	private static final String GAME = "game";
 	private CardLayout cardlayout = new CardLayout();
@@ -28,13 +35,15 @@ public class Tictactoe {
 	private int roundCount = 0;
 	private int turnCount = 0;
 	Player currentPlayer;
+	JButton[][] buttons = new JButton[3][3];
+	static JFrame frame = new JFrame("TicTacToe");
 	
 	private static Dimension dimension = new Dimension(500, 300);
 
 	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(new Runnable(){
 			public void run(){
-				BuildUI();
+				BuildUI(frame);
 			}
 		});
 	}
@@ -57,10 +66,7 @@ public class Tictactoe {
 					if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
 						playerX.setName(mainmenu.player2Name());
 						playerO.setName(mainmenu.player1Name());
-						GameScreen gamescreen = new GameScreen(playerX, playerO, mainmenu.getRoundNumber());
-						panel.add(gamescreen.getMainComponent(), GAME);	
-						Horizontal horizontal = new Horizontal(currentPlayer, gamescreen.getButton());
-						cardlayout.show(panel, GAME);
+						mainLoop(playerX, playerO);
 						//gamescreen.mainLoop(playerX, playerO, mainmenu.getRoundNumber());
 						
 					}else if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&!mainmenu.isOddNumber()){
@@ -98,17 +104,40 @@ public class Tictactoe {
 			  	
 	}
 	
-	private void mainLoop(){
+	private void mainLoop(Player playerX, Player playerO){
+		GameScreen gamescreen = new GameScreen(playerX, playerO, mainmenu.getRoundNumber());
+		panel.add(gamescreen.getMainComponent(), GAME);	
+		cardlayout.show(panel, GAME);
+		
 		while(this.roundCount < mainmenu.getRoundNumber()){
-			turnCount++;
-			if(turnCount%2 == 0){
+			while((playerX.getWinner() || playerO.getWinner()) || turnCount < 10){
+				turnCount++;
+				if(turnCount%2 == 0){
+					this.currentPlayer = playerO;
+				}else{
+					this.currentPlayer = playerX;
+				}
+				System.out.println("jkl");
+				Horizontal horizontal = new Horizontal(currentPlayer, gamescreen.getButton());
+				horizontal.start();
+				
+				Vertical vertical = new Vertical(currentPlayer, gamescreen.getButton());
+				vertical.start();
+				
+				if(playerX.getWinner() || playerO.getWinner()){
+					JOptionPane.showMessageDialog(null, "yey");
+				}else{
+					//JOptionPane.showMessageDialog(null, "draw.");
+				}
+				
 				
 			}
+			roundCount++;
 		}
 	}
 	
-	private static void BuildUI(){
-		JFrame frame = new JFrame("TicTacToe");
+	private static void BuildUI(JFrame frame){
+		
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);
 		
@@ -117,5 +146,17 @@ public class Tictactoe {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		turnCount++;
+		if(turnCount % 2 == 0){
+			((JButton)e.getSource()).setText("O");
+		}else{
+			((JButton)e.getSource()).setText("X");
+		}
+		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
+		((JButton)e.getSource()).setEnabled(false);
 	}
 }

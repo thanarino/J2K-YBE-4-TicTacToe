@@ -1,36 +1,37 @@
 package algo;
 
+import javax.swing.JButton;
+
 public class Vertical extends Thread{
 	Player p;
-	int count =0;
-	int count1=0;
-	int count2=0;
+	JButton[][] buttons;
 	
 	
-	public Vertical(Player p){
+	public Vertical(Player p, JButton[][] buttons){
 		this.p = p;
+		this.buttons = buttons;
 	}
 	
-	int[] check = p.getPattern();
-	public void run(){
+	public synchronized void run(){
 		//{0,1,2}
 		//{3,4,5}
 		//{6,7,8}
 		
-		for(int i=0; i<p.getCounter(); i++){
-			if(check[i] == 0 || check[i] == 3 || check[i] == 6){
-				count++;
-			}else if(check[i] == 1 || check[i] == 4 || check[i] == 7){
-				count1++;
-			}else if(check[i] == 2 || check[i] == 5 || check[i] == 8){
-				count2++;
+		for(int i = 0; i < 3; i++){
+			if(p.getSymbol() == 'X'){
+				if(buttons[0][i].getText() == "X"){
+					if(buttons[0][i].getText() == buttons[1][i].getText() && buttons[0][i].getText() == buttons[2][i].getText()){
+						p.setWinner(true);
+					}
+				}
+			}else{
+				if(buttons[0][1].getText() == "O"){
+					if(buttons[0][i].getText() == buttons[1][i].getText() && buttons[0][i].getText() == buttons[2][i].getText()){
+						p.setWinner(true);
+					}
+				}
 			}
 		}
-		
-		if(count == 3 || count1 == 3 || count2 == 3){
-			p.setScore(1);
-		}
-		
 	}
 	
 	

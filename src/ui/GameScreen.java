@@ -126,7 +126,6 @@ public class GameScreen extends MainMenu implements ActionListener{
 		}
 		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
 		((JButton)e.getSource()).setEnabled(false);
-
 	}
 
 	public JButton[][] getButton() {

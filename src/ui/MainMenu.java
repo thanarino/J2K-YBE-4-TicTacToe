@@ -116,7 +116,6 @@ public class MainMenu{
 		}else{
 			setPlayer2HasData(true);
 		}
-
 		if(roundNumber.getText().equals("") || Integer.parseInt(roundNumber.getText()) % 2 == 0){
 			setOddNumber(false);
 		}else{

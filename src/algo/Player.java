@@ -17,6 +17,10 @@ public class Player{
 		this.isWinner = val;
 	}
 	
+	public boolean getWinner(){
+		return this.isWinner;
+	}
+	
 	public void setPattern(int playerMoveCount, int num){
 		this.pattern[playerMoveCount] = num;
 	}
@@ -47,6 +51,10 @@ public class Player{
 	
 	public int getScore(){
 		return this.score;
+	}
+
+	public char getSymbol() {
+		return this.symbol;
 	}
 	
 }
