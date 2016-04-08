@@ -83,6 +83,14 @@ public class Tictactoe {
 				}
 			}
 		});
+		
+		mainmenu.addCancelActionListener(new ActionListener(){
+			 	@Override
+			 	public void actionPerformed(ActionEvent e) {
+			 	System.exit(1);
+			 }
+		});	
+			  	
 	}
 	
 	private static void BuildUI(){
