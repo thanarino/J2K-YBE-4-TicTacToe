@@ -33,8 +33,6 @@ public class MainMenu{
 	private boolean player2HasData = false;
 	private boolean oddNumber = false;
 	
-	
-	
 	public MainMenu() {
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(), BorderLayout.CENTER);
@@ -53,8 +51,7 @@ public class MainMenu{
 	}
 	
 	public void addCancelActionListener(ActionListener actionListener){
-		cancel.addActionListener(actionListener);
-		
+		cancel.addActionListener(actionListener);		
 	}
 		
 	private JPanel addComponentsAbove() {
@@ -104,8 +101,6 @@ public class MainMenu{
 		panel.add(new JLabel("Best of: "));
 		panel.add(roundNumber);
 		panel.add(error);
-
-
 		return panel;
 	}
 	
@@ -127,14 +122,20 @@ public class MainMenu{
 		}else{
 			setOddNumber(true);
 		}
-		
-		System.out.println(player1HasData);
-		System.out.println(player2HasData);
-		System.out.println(oddNumber);
-		
 	}
 
 	//GETTERS && SETTERS
+	public int getRoundNumber(){
+		return Integer.parseInt(roundNumber.getText());
+	}
+	
+	public String player1Name(){
+		return player1.getText();
+	}
+	
+	public String player2Name(){
+		return player2.getText();
+	}
 	
 	public boolean isPlayer1HasData() {
 		return player1HasData;

@@ -24,8 +24,11 @@ public class GameScreen {
 	JButton back = new JButton("Back");
 	
 	public GameScreen() {
+<<<<<<< Updated upstream
 		//panel.setBackground(Color.BLUE);
 		
+=======
+>>>>>>> Stashed changes
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
@@ -70,7 +73,11 @@ public class GameScreen {
 			button[i].addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					
+<<<<<<< Updated upstream
 					((JButton)e.getSource()).setText("X");
+=======
+					((JButton)e.getSource()).setText("x");
+>>>>>>> Stashed changes
 					
 				}
 			});
