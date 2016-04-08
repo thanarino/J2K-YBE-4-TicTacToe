@@ -44,8 +44,12 @@ public class Tictactoe {
 	}
 	
 	public Tictactoe(){
+		/***********
+			constructor for the class Tictactoe
+		***********/
 		panel.add(mainmenu.getMainComponent(), MENU);
 		
+		//Ok Button
 		mainmenu.addOKActionListener(new ActionListener(){
 			
 			@Override
@@ -54,6 +58,7 @@ public class Tictactoe {
 					mainmenu.checker();
 				}catch(NumberFormatException ex){
 				}finally{
+					//check conditions of textfields
 					if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
 						playerX.setName(mainmenu.player2Name());
 						playerO.setName(mainmenu.player1Name());
@@ -89,6 +94,7 @@ public class Tictactoe {
 			}
 		});
 		
+		//Cancel Button
 		mainmenu.addCancelActionListener(new ActionListener(){
 			 	@Override
 			 	public void actionPerformed(ActionEvent e) {
@@ -99,6 +105,9 @@ public class Tictactoe {
 	}
 	
 	private void mainLoop(){
+	/****************
+		Main game loop
+	****************/
 		while(this.roundCount < mainmenu.getRoundNumber()){
 			turnCount++;
 			if(turnCount%2 == 0){
@@ -108,6 +117,9 @@ public class Tictactoe {
 	}
 	
 	private static void BuildUI(){
+	/****************
+		Build frame for the game
+	****************/
 		JFrame frame = new JFrame("TicTacToe");
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);

@@ -1,3 +1,9 @@
+ /*
+ * Class Vertical
+ * 	- contains the checker for vertical patterns
+ * 
+ */
+
 package algo;
 
 public class Vertical extends Thread{

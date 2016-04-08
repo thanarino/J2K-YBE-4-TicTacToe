@@ -39,6 +39,9 @@ public class GameScreen extends MainMenu implements ActionListener{
 	Horizontal horizontal = new Horizontal(currentPlayer, getButton());
 	
 	public GameScreen(Player playerX, Player playerO, int roundNumber) {
+	/****************
+		Constructor
+	****************/
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(getButton(), playerX, playerO), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
@@ -52,6 +55,9 @@ public class GameScreen extends MainMenu implements ActionListener{
 	}
 	
 	public JPanel addComponentsAbove(){
+	/****************
+		add components above: turn status
+	****************/
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 50));
 		turnStatus.setText("Turn "+"XX"+": "+"XX"+" ("+"Player "+"XX"+")");
@@ -60,6 +66,9 @@ public class GameScreen extends MainMenu implements ActionListener{
 	}
 	
 	public JPanel addComponentsBelow(Player playerX, Player playerO, int roundNumber){
+	/****************
+		add components below: round number, players score
+	****************/
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 50));
 		panel.setLayout(new GridLayout(1,3));
@@ -74,6 +83,9 @@ public class GameScreen extends MainMenu implements ActionListener{
 	}
 	
 	public JPanel addComponentsCenter(JButton[][] button, Player playerX, Player playerO){
+	/****************
+		add components center : buttons
+	****************/
 		int i;
 		Dimension dimension = new Dimension(30,30);
 		JPanel panel = new JPanel();
@@ -107,17 +119,12 @@ public class GameScreen extends MainMenu implements ActionListener{
 		panel.setPreferredSize(new Dimension(100, 300));		
 		return panel;
 	}
-
-	public JLabel getPlayer1() {
-		return player1;
-	}
-
-	public void setPlayer1(JLabel player1) {
-		this.player1 = player1;
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+	/****************
+		action for button: changes text of button when clicked
+	****************/
 		turnCount++;
 		if(turnCount % 2 == 0){
 			((JButton)e.getSource()).setText("O");
@@ -127,6 +134,15 @@ public class GameScreen extends MainMenu implements ActionListener{
 		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
 		((JButton)e.getSource()).setEnabled(false);
 
+	}
+
+	//GETTERS and SETTERS
+	public JLabel getPlayer1() {
+		return player1;
+	}
+
+	public void setPlayer1(JLabel player1) {
+		this.player1 = player1;
 	}
 
 	public JButton[][] getButton() {

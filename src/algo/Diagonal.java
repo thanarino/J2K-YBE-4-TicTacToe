@@ -1,3 +1,9 @@
+ /*
+ * Class Diagonal
+ * 	- contains the checker for diagonal patterns
+ * 
+ */
+ 
  package algo;
 
 public class Diagonal extends Thread{

@@ -34,6 +34,9 @@ public class MainMenu{
 	private boolean oddNumber = false;
 	
 	public MainMenu() {
+	/****************
+		Constructor
+	****************/
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
@@ -61,6 +64,9 @@ public class MainMenu{
 	}
 	
 	private JPanel addComponentsBelow() {
+	/****************
+		add components below: ok and cancel button
+	****************/
 		JPanel panel = new JPanel();
 		
 		panel.setPreferredSize(new Dimension(500, 50));
@@ -94,6 +100,7 @@ public class MainMenu{
 		panel.add(title);
 		//Color.magenta
 		
+		//Labels
 		panel.add(new JLabel("Player 1 name: "));
 		panel.add(player1);
 		panel.add(new JLabel("Player 2 name: "));
@@ -105,6 +112,9 @@ public class MainMenu{
 	}
 	
 	public void checker(){
+	/****************
+		Checker if text field has data
+	****************/
 		if(player1.getText().equals("")){
 			setPlayer1HasData(false);
 		}else{
