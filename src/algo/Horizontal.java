@@ -1,3 +1,9 @@
+ /*
+ * Class Horizontal
+ * 	- contains the checker for horizontal patterns
+ * 
+ */
+
 package algo;
 
 import javax.swing.JButton;

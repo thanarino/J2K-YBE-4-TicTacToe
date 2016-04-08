@@ -1,8 +1,10 @@
-/*
- * Class TicTacToe
- * 	- contains the main method
- * 
+
+/* Authors: Jonathan Arino && Krisanta Agdan && Krezly Plata
+ * Date Created: April 5, 2016
+ * Date Submitted: April 8, 2016
+ * Tictactoe Game: This lets the user play Tictactoe Game.
  */
+ 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,16 +55,24 @@ public class Tictactoe implements ActionListener{
 	}
 	
 	public Tictactoe(){
+		/***********
+			constructor for the class Tictactoe
+		***********/
 		panel.add(mainmenu.getMainComponent(), MENU);
 		
+		//Ok Button
 		mainmenu.addOKActionListener(new ActionListener(){
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
+			/*********************************************************************************
+				This function checks the inputs of the user in the main screen.
+			*********************************************************************************/
 				try{
 					mainmenu.checker();
 				}catch(NumberFormatException ex){
 				}finally{
+					//check conditions of textfields
 					if(mainmenu.isPlayer2HasData()&&mainmenu.isPlayer1HasData()&&mainmenu.isOddNumber()){
 						playerX.setName(mainmenu.player2Name());
 						playerO.setName(mainmenu.player1Name());
@@ -96,6 +106,9 @@ public class Tictactoe implements ActionListener{
 		});
 		
 		mainmenu.addCancelActionListener(new ActionListener(){
+		/*********************************************************************************
+			This function allows the cancel button to exit the game.
+		*********************************************************************************/
 			 	@Override
 			 	public void actionPerformed(ActionEvent e) {
 			 	System.exit(1);
@@ -108,7 +121,10 @@ public class Tictactoe implements ActionListener{
 		GameScreen gamescreen = new GameScreen(playerX, playerO, mainmenu.getRoundNumber());
 		panel.add(gamescreen.getMainComponent(), GAME);	
 		cardlayout.show(panel, GAME);
-		
+
+	/****************
+		Main game loop
+	****************/
 		while(this.roundCount < mainmenu.getRoundNumber()){
 			while((playerX.getWinner() || playerO.getWinner()) || turnCount < 10){
 				turnCount++;
@@ -138,6 +154,10 @@ public class Tictactoe implements ActionListener{
 	
 	private static void BuildUI(JFrame frame){
 		
+
+	/*********************************************************************************
+		This function builds the user interface of the game.
+	*********************************************************************************/
 		frame.setPreferredSize(dimension);
 		frame.setMinimumSize(dimension);
 		

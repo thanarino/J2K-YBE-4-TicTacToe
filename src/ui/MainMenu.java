@@ -1,7 +1,8 @@
-/*
- * Class MainMenu
- * 	- contains the screen displayed when starting the program.
- * 
+
+/* Authors: Jonathan Arino && Krisanta Agdan && Krezly Plata
+ * Date Created: April 5, 2016
+ * Date Submitted: April 8, 2016
+ * Tictactoe Game: This lets the user play Tictactoe Game.
  */
 
 package ui;
@@ -34,6 +35,14 @@ public class MainMenu{
 	private boolean oddNumber = false;
 	
 	public MainMenu() {
+	/****************
+		Constructor
+	****************/
+	
+	/*********************************************************************************
+		This is the constructors for the MainMenu class.
+	*********************************************************************************/
+		
 		panel.setLayout(new BorderLayout());
 		panel.add(addComponentsCenter(), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
@@ -47,20 +56,38 @@ public class MainMenu{
 	}
 	
 	public void addOKActionListener(ActionListener actionListener){
+	
+	/*********************************************************************************
+		This functions adds ok button in the main screen.
+	*********************************************************************************/
+	
 		ok.addActionListener(actionListener);
 	}
 	
 	public void addCancelActionListener(ActionListener actionListener){
+	
+	/*********************************************************************************
+		This function adds cancel button in the main screen.
+	*********************************************************************************/
+	
 		cancel.addActionListener(actionListener);		
 	}
 		
 	private JPanel addComponentsAbove() {
+	
+	/*********************************************************************************
+		This function adds a padding above the screen for proportionality.
+	*********************************************************************************/
+	
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 50));
 		return panel;
 	}
 	
 	private JPanel addComponentsBelow() {
+	/*********************************************************************************
+		This function adds a padding below the screen for proportionality.
+	*********************************************************************************/
 		JPanel panel = new JPanel();
 		
 		panel.setPreferredSize(new Dimension(500, 50));
@@ -71,18 +98,33 @@ public class MainMenu{
 	}
 	
 	private JPanel addComponentsEast() {
+	
+	/*********************************************************************************
+		This function adds a padding in the right of the screen for proportionality.
+	*********************************************************************************/
+	
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(100, 300));
 		return panel;
 	}
 	
 	private JPanel addComponentsWest() {
+	
+	/*********************************************************************************
+		This function adds a padding in the left the screen for proportionality.
+	*********************************************************************************/
+	
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(100, 300));
 		return panel;
 	}
 
 	public JPanel addComponentsCenter(){
+	
+	/*********************************************************************************
+		This function adds panel in the center of the main screen.
+	*********************************************************************************/
+	
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(300, 300));
 		//button[i].setForeground(Color.BLUE);
@@ -94,6 +136,7 @@ public class MainMenu{
 		panel.add(title);
 		//Color.magenta
 		
+		//Labels
 		panel.add(new JLabel("Player 1 name: "));
 		panel.add(player1);
 		panel.add(new JLabel("Player 2 name: "));
@@ -105,6 +148,10 @@ public class MainMenu{
 	}
 	
 	public void checker(){
+	/*********************************************************************************
+		This functions checks whether each player has inputted name.
+	*********************************************************************************/
+	
 		if(player1.getText().equals("")){
 			setPlayer1HasData(false);
 		}else{
@@ -116,6 +163,11 @@ public class MainMenu{
 		}else{
 			setPlayer2HasData(true);
 		}
+
+	/*********************************************************************************
+		Checks if the round number is whether add or even.
+	*********************************************************************************/
+	
 		if(roundNumber.getText().equals("") || Integer.parseInt(roundNumber.getText()) % 2 == 0){
 			setOddNumber(false);
 		}else{
@@ -123,7 +175,10 @@ public class MainMenu{
 		}
 	}
 
-	//GETTERS && SETTERS
+	/*********************************************************************************
+		Getter and Setter of the MainMenu.
+	*********************************************************************************/
+
 	public int getRoundNumber(){
 		return Integer.parseInt(roundNumber.getText());
 	}
