@@ -11,6 +11,7 @@ public class Diagonal extends Thread{
 	}
 	
 	int[] check = p.getPattern();
+	
 	public void run(){
 		//{0,1,2}
 		//{3,4,5}

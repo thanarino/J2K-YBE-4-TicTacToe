@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import algo.Horizontal;
 import algo.Player;
 
 public class GameScreen extends MainMenu implements ActionListener{
@@ -29,16 +30,17 @@ public class GameScreen extends MainMenu implements ActionListener{
 	JLabel player2 = new JLabel("",JLabel.CENTER);
 	JLabel gameStatus = new JLabel("", JLabel.CENTER);
 	JLabel turnStatus = new JLabel("", JLabel.CENTER);
-	JButton[] button = new JButton[9];
+	private JButton[][] button = new JButton[3][3];
 	int playerOMoveCount = 0;
 	int playerXMoveCount = 0;
 	int turnCount = 0;
 	Player currentPlayer;
 	String letter;
+	Horizontal horizontal = new Horizontal(currentPlayer, getButton());
 	
 	public GameScreen(Player playerX, Player playerO, int roundNumber) {
 		panel.setLayout(new BorderLayout());
-		panel.add(addComponentsCenter(button, playerX, playerO), BorderLayout.CENTER);
+		panel.add(addComponentsCenter(getButton(), playerX, playerO), BorderLayout.CENTER);
 		panel.add(addComponentsAbove(), BorderLayout.NORTH);
 		panel.add(addComponentsBelow(playerX, playerO, roundNumber), BorderLayout.SOUTH);
 		panel.add(addComponentsEast(), BorderLayout.EAST);
@@ -71,7 +73,7 @@ public class GameScreen extends MainMenu implements ActionListener{
 		return panel;
 	}
 	
-	public JPanel addComponentsCenter(JButton[] button, Player playerX, Player playerO){
+	public JPanel addComponentsCenter(JButton[][] button, Player playerX, Player playerO){
 		int i;
 		Dimension dimension = new Dimension(30,30);
 		JPanel panel = new JPanel();
@@ -79,24 +81,13 @@ public class GameScreen extends MainMenu implements ActionListener{
 		panel.setPreferredSize(new Dimension(150, 150));
 		panel.setLayout(new GridLayout(3,3));
 		
-		for(i=0; i < 9; i++){
-			button[i] = new JButton();
-			button[i].setName(Integer.toString(i));
-			button[i].setPreferredSize(dimension);
-			panel.add(button[i]);
-			button[i].addActionListener(this);
-			if(!(button[i].isEnabled())){
-				if(turnCount % 2 == 0){
-					playerO.setPattern(playerOMoveCount, i);
-					System.out.println(playerO.getPattern()[0]);
-					playerOMoveCount++;
-					System.out.println(playerOMoveCount);
-				}else{
-					playerX.setPattern(playerXMoveCount, i);
-					System.out.println(playerX.getPattern()[0]);
-					playerXMoveCount++;
-					System.out.println(playerXMoveCount);
-				}
+		for(i=0; i < 3; i++){
+			for(int j=0; j<3; j++){
+				button[i][j] = new JButton();
+				button[i][j].setName(Integer.toString(i));
+				button[i][j].setPreferredSize(dimension);
+				panel.add(button[i][j]);
+				button[i][j].addActionListener(this);
 			}
 		}
 		
@@ -129,16 +120,20 @@ public class GameScreen extends MainMenu implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		turnCount++;
 		if(turnCount % 2 == 0){
-			letter = "O";
+			((JButton)e.getSource()).setText("O");
 		}else{
-			letter = "X";
+			((JButton)e.getSource()).setText("X");
 		}
-		((JButton)e.getSource()).setText(letter);
 		((JButton)e.getSource()).setFont(new Font("Monospace", Font.BOLD, 50));
-		((JButton)e.getSource()).setText(letter);
 		((JButton)e.getSource()).setEnabled(false);
 
 	}
-	
 
+	public JButton[][] getButton() {
+		return button;
+	}
+
+	public void setButton(JButton[][] button) {
+		this.button = button;
+	}
 }

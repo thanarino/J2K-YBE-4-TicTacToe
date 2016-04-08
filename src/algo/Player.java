@@ -2,14 +2,19 @@ package algo;
 
 public class Player{
 	private String name;
-	private int[] pattern = new int[5];
+	public int[] pattern = new int[5];
 	private int counter = 0;
 	private int score;
 	private char symbol;
+	private boolean isWinner;
 	
 	public Player(char symbol){
 		//this.name = name;
 		this.symbol = symbol;
+	}
+	
+	public void setWinner(boolean val){
+		this.isWinner = val;
 	}
 	
 	public void setPattern(int playerMoveCount, int num){

@@ -1,37 +1,33 @@
 package algo;
 
+import javax.swing.JButton;
+
 public class Horizontal extends Thread{
 	Player p;
+	JButton[][] buttons;
 	int count =0;
 	int count1=0;
 	int count2=0;
 	
 	
-	public Horizontal(Player p){
+	public Horizontal(Player p, JButton[][] buttons){
 		this.p = p;
+		this.buttons = buttons;
 	}
 	
-	int[] check = p.getPattern();
 	public void run(){
 		//{1,4,2,0}
 		//{0,1,2}
 		//{3,4,5}
 		//{6,7,8}
 		
-		for(int i=0; i<p.getCounter(); i++){
-			if(check[i] == 0 || check[i] == 1 || check[i] == 2){
-				count++;
-			}else if(check[i] == 3 || check[i] == 4 || check[i] == 5){
-				count1++;
-			}else if(check[i] == 6 || check[i] == 7 || check[i] == 8){
-				count2++;
+		for(int i = 0; i < 3; i++){
+			if(buttons[i][0].getText() == "X" ||buttons[i][0].getText() == "O"){
+				if(buttons[i][0].getText() == buttons[i][1].getText() && buttons[i][0].getText() == buttons[i][2].getText()){
+					p.setWinner(true);
+				}
 			}
 		}
-		
-		if(count == 3 || count1 == 3 || count2 == 3){
-			p.setScore(1);
-		}
-		
 	}
 	
 	
