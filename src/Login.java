@@ -3,9 +3,8 @@
    Date Updated: April 11, 2016
 **************************************/
 
-package main;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -35,6 +34,7 @@ public class Login {
 	   Constructor for the class Login
 	**********************************************/
 		title.setFont(font);
+		title.setForeground(Color.BLUE);
 		panel.add(title, BorderLayout.NORTH);
 		panel.add(addForms(), BorderLayout.CENTER);
 		panel.add(addButtonsBelow(), BorderLayout.SOUTH);

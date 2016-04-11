@@ -3,8 +3,6 @@
    Date Updated: April 11, 2016
 **************************************/
 
-package main;
-
 public class Player {
 	private int score;
 	private String name;

@@ -3,8 +3,6 @@
    Date Updated: April 11, 2016
 **************************************/
 
-package main;
-
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -71,6 +69,10 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+	/****************************************************
+	   Main method: 
+		creating frame for the GUI
+	*****************************************************/
 		JFrame window = new JFrame("TicTacToe V2");
 		window.getContentPane().add(new Main().getPanel());;
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

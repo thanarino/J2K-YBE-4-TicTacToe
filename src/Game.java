@@ -3,8 +3,6 @@
    Date Updated: April 11, 2016
 **************************************/
 
-package main;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -24,6 +22,7 @@ public class Game extends Thread implements ActionListener{
 	private int turnNum = 1;
 	private int roundNum = 0;
 	private int currentRound = 0;
+	private int checkIfAlreadyWon = 0;
 	
 	private Player player1 = new Player();
 	private Player player2 = new Player();
@@ -103,6 +102,7 @@ public class Game extends Thread implements ActionListener{
 	**********************************************/
 		
 		if(currentRound < roundNum+1){
+			
 			((JButton)e.getSource()).setEnabled(false);
 			
 			if(currentRound%2 != 0){
@@ -132,11 +132,11 @@ public class Game extends Thread implements ActionListener{
 			/**********************************************
 	  		  Use of thread for checking of patterns
 			**********************************************/
-			buildThreadsHorizontal(currentPlayer).start();;
+			buildThreadsHorizontal(currentPlayer).start();
 			buildThreadsVertical(currentPlayer).start();
 			buildThreadsDiagonal(currentPlayer).start();
 			
-			if(turnNum == 10 && !(player1.checkWin()) && !(player2.checkWin())){
+			if(turnNum == 10 && !(player1.checkWin()) && !(player2.checkWin()) && checkIfAlreadyWon!=1){
 				JOptionPane.showMessageDialog(null, "Draw! Everyone gets a point!");
 				player1.setScore();
 				player2.setScore();
@@ -145,6 +145,7 @@ public class Game extends Thread implements ActionListener{
 				resetBoard(buttons);
 				turnNum = 1;
 				currentRound++;
+				checkIfAlreadyWon = 0;
 			}
 			
 			if(player1.checkWin()){
@@ -183,8 +184,12 @@ public class Game extends Thread implements ActionListener{
 						player.setScore();
 						if(player1.checkWin()){
 							player1Score.setText(player1Name+" (P1): "+player1.getScore());
+							checkIfAlreadyWon = 1;
 						}else if(player2.checkWin()){
 							player2Score.setText(player2Name+" (P2): "+player2.getScore());
+							checkIfAlreadyWon = 1;
+						}else if(!(player1.checkWin()) && !(player2.checkWin())){
+							checkIfAlreadyWon = 0;
 						}
 						currentRound++;
 						resetBoard(buttons);
@@ -210,8 +215,12 @@ public class Game extends Thread implements ActionListener{
 						player.setScore();
 						if(player1.checkWin()){
 							player1Score.setText(player1Name+" (P1): "+player1.getScore());
+							checkIfAlreadyWon = 1;
 						}else if(player2.checkWin()){
 							player2Score.setText(player2Name+" (P2): "+player2.getScore());
+							checkIfAlreadyWon = 1;
+						}else if(!(player1.checkWin()) && !(player2.checkWin())){
+							checkIfAlreadyWon = 0;
 						}
 						currentRound++;
 						resetBoard(buttons);
@@ -235,8 +244,12 @@ public class Game extends Thread implements ActionListener{
 					player.setScore();
 					if(player1.checkWin()){
 						player1Score.setText(player1Name+" (P1): "+player1.getScore());
+						checkIfAlreadyWon = 1;
 					}else if(player2.checkWin()){
 						player2Score.setText(player2Name+" (P2): "+player2.getScore());
+						checkIfAlreadyWon = 1;
+					}else if(!(player1.checkWin()) && !(player2.checkWin())){
+						checkIfAlreadyWon = 0;
 					}
 					currentRound++;
 					resetBoard(buttons);
@@ -247,8 +260,12 @@ public class Game extends Thread implements ActionListener{
 					player.setScore();
 					if(player1.checkWin()){
 						player1Score.setText(player1Name+" (P1): "+player1.getScore());
+						checkIfAlreadyWon = 1;
 					}else if(player2.checkWin()){
 						player2Score.setText(player2Name+" (P2): "+player2.getScore());
+						checkIfAlreadyWon = 1;
+					}else if(!(player1.checkWin()) && !(player2.checkWin())){
+						checkIfAlreadyWon = 0;
 					}
 					currentRound++;
 					resetBoard(buttons);
@@ -260,6 +277,9 @@ public class Game extends Thread implements ActionListener{
 	}
 	
 	void resetBoard(JButton[][] buttons){
+	/**********************************************
+	   Reset board for new round
+	**********************************************/
 		for(int i=0; i<3; i++){
 			for(int j=0; j<3; j++){
 				buttons[i][j].setText("");
