@@ -18,11 +18,10 @@ public class Game extends Thread implements ActionListener{
 	private BorderLayout borderlayout = new BorderLayout();
 	private JPanel panel = new JPanel(borderlayout);
 	private JButton[][] buttons = new JButton[3][3];
-	
+		
 	private int turnNum = 1;
 	private int roundNum = 0;
-	private int currentRound = 0;
-	private int checkIfAlreadyWon = 0;
+	private int currentRound = 1;
 	
 	private Player player1 = new Player();
 	private Player player2 = new Player();
@@ -32,11 +31,11 @@ public class Game extends Thread implements ActionListener{
 	private String player2Name;
 	
 	private JLabel turns = new JLabel("Turn "+turnNum+": "+"XX"+" ("+"XX"+")", JLabel.CENTER);
-	private JLabel player1Score = new JLabel("XX"+" (P1): "+"XX", JLabel.CENTER);
-	private JLabel player2Score = new JLabel("XX"+" (P2): "+"XX", JLabel.CENTER);
+	private JLabel player1Score = new JLabel("XX"+" (P1): "+"0", JLabel.CENTER);
+	private JLabel player2Score = new JLabel("XX"+" (P2): "+"0", JLabel.CENTER);
 	private JLabel game = new JLabel("Game "+"XX"+" out of "+"XX", JLabel.CENTER);
 	
-	Thread[] threads = new Thread[3];
+	Thread[] threads = new Thread[4];
 	
 	JPanel getPanel(){
 		return panel;
@@ -63,11 +62,11 @@ public class Game extends Thread implements ActionListener{
 	   Method for creating components at bottom
 	**********************************************/
 		JPanel botPanel = new JPanel(new GridLayout(1,3));
-		player1Score.setText(playerUno+" (P1): "+"XX");
+		player1Score.setText(playerUno+" (P1): "+"0");
 		botPanel.add(player1Score);
 		game.setText("Game "+roundNum+" out of "+rounds);
 		botPanel.add(game);
-		player2Score.setText(playerDos+" (P2): "+"XX");
+		player2Score.setText(playerDos+" (P2): "+"0");
 		botPanel.add(player2Score);
 		return botPanel;
 	}
@@ -132,20 +131,33 @@ public class Game extends Thread implements ActionListener{
 			/**********************************************
 	  		  Use of thread for checking of patterns
 			**********************************************/
-			buildThreadsHorizontal(currentPlayer).start();
-			buildThreadsVertical(currentPlayer).start();
-			buildThreadsDiagonal(currentPlayer).start();
 			
-			if(turnNum == 10 && !(player1.checkWin()) && !(player2.checkWin()) && checkIfAlreadyWon!=1){
-				JOptionPane.showMessageDialog(null, "Draw! Everyone gets a point!");
-				player1.setScore();
-				player2.setScore();
-				player1.resetWin();
-				player2.resetWin();
-				resetBoard(buttons);
-				turnNum = 1;
-				currentRound++;
-				checkIfAlreadyWon = 0;
+			if(turnNum != 10 && player1.checkWin() == false && player2.checkWin() == false){
+				buildThreadsHorizontal(currentPlayer).start();
+				try {
+					buildThreadsHorizontal(currentPlayer).join();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				buildThreadsVertical(currentPlayer).start();
+				try {
+					buildThreadsVertical(currentPlayer).join();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				buildThreadsDiagonal(currentPlayer).start();
+				try {
+					buildThreadsDiagonal(currentPlayer).join();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}else if(turnNum == 10 && player1.checkWin() == false && player2.checkWin() == false){
+				checkIfDraw(player1, player2).start();
+				try {
+					checkIfDraw(player1, player2).join();
+					} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
 			}
 			
 			if(player1.checkWin()){
@@ -171,6 +183,22 @@ public class Game extends Thread implements ActionListener{
 		
 	}
 	
+	Thread checkIfDraw(Player player1, Player player2){
+		threads[3] = new Thread(){
+			public synchronized void run(){
+				JOptionPane.showMessageDialog(null, "Draw! Everyone gets a point!");
+				player1.setScore();
+				player2.setScore();
+				player1.resetWin();
+				player2.resetWin();
+				resetBoard(buttons);
+				turnNum = 1;
+				currentRound++;
+			}
+		};
+		return threads[3];
+	}
+	
 	Thread buildThreadsHorizontal(Player player){
 	/**********************************************
 	   Thread for Horizontal pattern
@@ -178,18 +206,18 @@ public class Game extends Thread implements ActionListener{
 		threads[0] = new Thread(){
 			public synchronized void run(){
 				for(int i=0; i<3; i++){
-					if(buttons[i][0].getText() == buttons[i][1].getText() && buttons[i][1].getText() == buttons[i][2].getText() && buttons[i][0].getText()!=""){
+					if(buttons[i][0].getText() == buttons[i][1].getText() 
+							&& buttons[i][1].getText() == buttons[i][2].getText() 
+							&& buttons[i][0].getText()!=""
+							&& player1.checkWin() == false
+							&& player2.checkWin() == false){
 						JOptionPane.showMessageDialog(null, player.getName()+" wins!");
 						player.setWin();
 						player.setScore();
 						if(player1.checkWin()){
 							player1Score.setText(player1Name+" (P1): "+player1.getScore());
-							checkIfAlreadyWon = 1;
 						}else if(player2.checkWin()){
 							player2Score.setText(player2Name+" (P2): "+player2.getScore());
-							checkIfAlreadyWon = 1;
-						}else if(!(player1.checkWin()) && !(player2.checkWin())){
-							checkIfAlreadyWon = 0;
 						}
 						currentRound++;
 						resetBoard(buttons);
@@ -209,18 +237,18 @@ public class Game extends Thread implements ActionListener{
 		threads[1] = new Thread(){
 			public synchronized void run(){
 				for(int i=0; i<3; i++){
-					if(buttons[0][i].getText() == buttons[1][i].getText() && buttons[1][i].getText() == buttons[2][i].getText() && buttons[0][i].getText()!=""){
+					if(buttons[0][i].getText() == buttons[1][i].getText() 
+							&& buttons[1][i].getText() == buttons[2][i].getText() 
+							&& buttons[0][i].getText()!=""
+							&& player1.checkWin() == false
+							&& player2.checkWin() == false){
 						JOptionPane.showMessageDialog(null, player.getName()+" wins!");
 						player.setWin();
 						player.setScore();
 						if(player1.checkWin()){
 							player1Score.setText(player1Name+" (P1): "+player1.getScore());
-							checkIfAlreadyWon = 1;
 						}else if(player2.checkWin()){
 							player2Score.setText(player2Name+" (P2): "+player2.getScore());
-							checkIfAlreadyWon = 1;
-						}else if(!(player1.checkWin()) && !(player2.checkWin())){
-							checkIfAlreadyWon = 0;
 						}
 						currentRound++;
 						resetBoard(buttons);
@@ -238,34 +266,34 @@ public class Game extends Thread implements ActionListener{
 	**********************************************/
 		threads[2] = new Thread(){
 			public synchronized void run(){
-				if(buttons[0][0].getText() == buttons[1][1].getText() && buttons[1][1].getText() == buttons[2][2].getText() && buttons[0][0].getText()!=""){
+				if(buttons[0][0].getText() == buttons[1][1].getText() 
+						&& buttons[1][1].getText() == buttons[2][2].getText() 
+						&& buttons[0][0].getText()!=""
+						&& player1.checkWin() == false
+						&& player2.checkWin() == false){
 					JOptionPane.showMessageDialog(null, player.getName()+" wins!");
 					player.setWin();
 					player.setScore();
 					if(player1.checkWin()){
 						player1Score.setText(player1Name+" (P1): "+player1.getScore());
-						checkIfAlreadyWon = 1;
 					}else if(player2.checkWin()){
 						player2Score.setText(player2Name+" (P2): "+player2.getScore());
-						checkIfAlreadyWon = 1;
-					}else if(!(player1.checkWin()) && !(player2.checkWin())){
-						checkIfAlreadyWon = 0;
 					}
 					currentRound++;
 					resetBoard(buttons);
 					turnNum = 1;
-				}else if(buttons[0][2].getText() == buttons[1][1].getText() && buttons[1][1].getText() == buttons[2][0].getText() && buttons[0][2].getText()!=""){
+				}else if(buttons[0][2].getText() == buttons[1][1].getText() 
+						&& buttons[1][1].getText() == buttons[2][0].getText() 
+						&& buttons[0][2].getText()!=""
+						&& player1.checkWin() == false
+						&& player2.checkWin() == false){
 					JOptionPane.showMessageDialog(null, player.getName()+" wins!");
 					player.setWin();
 					player.setScore();
 					if(player1.checkWin()){
 						player1Score.setText(player1Name+" (P1): "+player1.getScore());
-						checkIfAlreadyWon = 1;
 					}else if(player2.checkWin()){
 						player2Score.setText(player2Name+" (P2): "+player2.getScore());
-						checkIfAlreadyWon = 1;
-					}else if(!(player1.checkWin()) && !(player2.checkWin())){
-						checkIfAlreadyWon = 0;
 					}
 					currentRound++;
 					resetBoard(buttons);

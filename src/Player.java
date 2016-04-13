@@ -11,9 +11,7 @@ public class Player {
 	public Player() {
 	}
 
-	void resetWin(){
-		this.isWinner = false;
-	}
+	
 	
 	
 	/********************************
@@ -30,6 +28,10 @@ public class Player {
 	
 	void setScore(){
 		this.score++;
+	}
+	
+	void resetWin(){
+		this.isWinner = false;
 	}
 	
 	void resetScore(){
